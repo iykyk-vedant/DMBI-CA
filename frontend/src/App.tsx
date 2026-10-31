@@ -1,122 +1,60 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Navbar } from './components/Navbar';
 
-function App() {
-  const [count, setCount] = useState(0)
+import { DashboardPage } from './pages/DashboardPage';
+import { PreprocessingPage } from './pages/PreprocessingPage';
+import { EdaPage } from './pages/EdaPage';
+import { ExplorerPage } from './pages/ExplorerPage';
+import { VisualisationsPage } from './pages/VisualisationsPage';
+import { ComparisonPage } from './pages/ComparisonPage';
+import { SensitivityPage } from './pages/SensitivityPage';
+import { RecommenderPage } from './pages/RecommenderPage';
+import { EvaluationPage } from './pages/EvaluationPage';
+import { InsightsPage } from './pages/InsightsPage';
+import { MethodologyPage } from './pages/MethodologyPage';
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 10, // 10 minutes cache
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
+export const App: React.FC = () => {
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-blue-600 selection:text-white">
+          <Navbar />
+          <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <Routes>
+              <Route path="/" element={<DashboardPage />} />
+              <Route path="/preprocessing" element={<PreprocessingPage />} />
+              <Route path="/eda" element={<EdaPage />} />
+              <Route path="/explorer" element={<ExplorerPage />} />
+              <Route path="/visualisations" element={<VisualisationsPage />} />
+              <Route path="/comparison" element={<ComparisonPage />} />
+              <Route path="/sensitivity" element={<SensitivityPage />} />
+              <Route path="/recommender" element={<RecommenderPage />} />
+              <Route path="/evaluation" element={<EvaluationPage />} />
+              <Route path="/insights" element={<InsightsPage />} />
+              <Route path="/methodology" element={<MethodologyPage />} />
+            </Routes>
+          </main>
+          <footer className="border-t border-slate-900 bg-slate-950/60 py-6 text-center text-xs text-slate-500">
+            <p>Data Mining & Business Intelligence (DMBI) Continuous Assessment - 2 • V.E.S.I.T. Autonomous Institute</p>
+            <p className="mt-1 text-[11px] text-slate-600">
+              Vedant Gharat (50) • Ayush Lokhande (55) • Deepak Nishad (59) • Ayush Yadav (69) • Sem-5 D15B
+            </p>
+          </footer>
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      </BrowserRouter>
+    </QueryClientProvider>
+  );
+};
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
-}
-
-export default App
+export default App;
