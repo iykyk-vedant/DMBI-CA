@@ -1,0 +1,146 @@
+[
+  {
+    "step": 1,
+    "rule": "Load and inspect",
+    "description": "Initial raw dataset loaded from UCI Online Retail repository",
+    "rows_before": 541909,
+    "rows_after": 541909,
+    "rows_removed": 0,
+    "metadata": {
+      "initial_shape": [
+        541909,
+        8
+      ]
+    }
+  },
+  {
+    "step": 2,
+    "rule": "Missing keys filter",
+    "description": "Drop rows missing InvoiceNo or StockCode. Keep missing CustomerID",
+    "rows_before": 541909,
+    "rows_after": 541909,
+    "rows_removed": 0,
+    "metadata": {}
+  },
+  {
+    "step": 3,
+    "rule": "Cancellation filter",
+    "description": "Drop completed cancellation invoices (InvoiceNo prefix 'C')",
+    "rows_before": 541909,
+    "rows_after": 532621,
+    "rows_removed": 9288,
+    "metadata": {}
+  },
+  {
+    "step": 4,
+    "rule": "Invalid values filter",
+    "description": "Drop non-positive Quantity (<= 0) and UnitPrice (<= 0)",
+    "rows_before": 532621,
+    "rows_after": 530104,
+    "rows_removed": 2517,
+    "metadata": {
+      "quantity_le_zero_count": 1336,
+      "unitprice_le_zero_count": 2517,
+      "both_le_zero_count": 1336
+    }
+  },
+  {
+    "step": 5,
+    "rule": "Non-product entries filter",
+    "description": "Drop non-product entries (POST, DOT, BANK CHARGES, fees, manual adjustments, invalid code patterns)",
+    "rows_before": 530104,
+    "rows_after": 527725,
+    "rows_removed": 2379,
+    "metadata": {
+      "top_removed_codes": {
+        "POST": 1126,
+        "DOT": 706,
+        "M": 321,
+        "C2": 141,
+        "DCGSSGIRL": 13,
+        "BANK CHARGES": 12,
+        "DCGSSBOY": 11,
+        "gift_0001_20": 9,
+        "gift_0001_10": 8,
+        "gift_0001_30": 7,
+        "gift_0001_50": 4,
+        "DCGS0003": 4,
+        "PADS": 3,
+        "gift_0001_40": 3,
+        "AMAZONFEE": 2,
+        "S": 2,
+        "DCGS0076": 2,
+        "DCGS0070": 1,
+        "m": 1,
+        "DCGS0069": 1
+      }
+    }
+  },
+  {
+    "step": 6,
+    "rule": "Exact duplicates filter",
+    "description": "Drop identical duplicate rows across all fields",
+    "rows_before": 527725,
+    "rows_after": 522504,
+    "rows_removed": 5221,
+    "metadata": {}
+  },
+  {
+    "step": 7,
+    "rule": "Text cleaning & Canonical labels",
+    "description": "Standardize product descriptions and map each distinct StockCode to its most frequent description",
+    "rows_before": 522504,
+    "rows_after": 522504,
+    "rows_removed": 0,
+    "metadata": {
+      "distinct_products_mapped": 3900
+    }
+  },
+  {
+    "step": 8,
+    "rule": "United Kingdom scope filter",
+    "description": "Restrict analysis scope to UK invoices only (as pre-registered in CA1)",
+    "rows_before": 522504,
+    "rows_after": 478838,
+    "rows_removed": 43666,
+    "metadata": {}
+  },
+  {
+    "step": 9,
+    "rule": "Basket grouping",
+    "description": "Group completed UK transactions by InvoiceNo into sets of distinct StockCodes",
+    "rows_before": 478838,
+    "rows_after": 17901,
+    "rows_removed": 0,
+    "metadata": {
+      "total_valid_baskets": 17901
+    }
+  },
+  {
+    "step": 10,
+    "rule": "Basket-size filter (>= 2 items)",
+    "description": "Drop single-item baskets for association rule mining (a 1-item basket cannot contain co-purchases)",
+    "rows_before": 17901,
+    "rows_after": 16506,
+    "rows_removed": 1395,
+    "metadata": {
+      "total_valid_baskets": 17901,
+      "baskets_ge_2": 16506,
+      "single_item_baskets_removed": 1395,
+      "support_denominator_chosen": "baskets_ge_2"
+    }
+  },
+  {
+    "step": 11,
+    "rule": "One-hot encode & frequency floor",
+    "description": "One-hot encode baskets into boolean matrix; pre-filter items below support floor 0.5% (83 baskets) to optimize memory",
+    "rows_before": 3890,
+    "rows_after": 1628,
+    "rows_removed": 2262,
+    "metadata": {
+      "min_count_floor": 83,
+      "distinct_items_before": 3890,
+      "eligible_items_after": 1628
+    }
+  }
+]

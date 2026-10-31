@@ -1,0 +1,283 @@
+{
+  "top_products": [
+    {
+      "rank": 1,
+      "stock_code": "85123A",
+      "label": "WHITE HANGING HEART T-LIGHT HOLDER",
+      "invoice_count": 2086,
+      "share_of_baskets_pct": 12.64
+    },
+    {
+      "rank": 2,
+      "stock_code": "85099B",
+      "label": "JUMBO BAG RED RETROSPOT",
+      "invoice_count": 1920,
+      "share_of_baskets_pct": 11.63
+    },
+    {
+      "rank": 3,
+      "stock_code": "22423",
+      "label": "REGENCY CAKESTAND 3 TIER",
+      "invoice_count": 1665,
+      "share_of_baskets_pct": 10.09
+    },
+    {
+      "rank": 4,
+      "stock_code": "47566",
+      "label": "PARTY BUNTING",
+      "invoice_count": 1578,
+      "share_of_baskets_pct": 9.56
+    },
+    {
+      "rank": 5,
+      "stock_code": "20725",
+      "label": "LUNCH BAG RED RETROSPOT",
+      "invoice_count": 1392,
+      "share_of_baskets_pct": 8.43
+    },
+    {
+      "rank": 6,
+      "stock_code": "84879",
+      "label": "ASSORTED COLOUR BIRD ORNAMENT",
+      "invoice_count": 1369,
+      "share_of_baskets_pct": 8.29
+    },
+    {
+      "rank": 7,
+      "stock_code": "22197",
+      "label": "POPCORN HOLDER",
+      "invoice_count": 1273,
+      "share_of_baskets_pct": 7.71
+    },
+    {
+      "rank": 8,
+      "stock_code": "22720",
+      "label": "SET OF 3 CAKE TINS PANTRY DESIGN",
+      "invoice_count": 1233,
+      "share_of_baskets_pct": 7.47
+    },
+    {
+      "rank": 9,
+      "stock_code": "22457",
+      "label": "NATURAL SLATE HEART CHALKBOARD",
+      "invoice_count": 1218,
+      "share_of_baskets_pct": 7.38
+    },
+    {
+      "rank": 10,
+      "stock_code": "20727",
+      "label": "LUNCH BAG BLACK SKULL.",
+      "invoice_count": 1214,
+      "share_of_baskets_pct": 7.35
+    }
+  ],
+  "monthly_trend": [
+    {
+      "month": "2010-12",
+      "invoice_count": 1289,
+      "is_partial": false,
+      "note": "Full calendar month"
+    },
+    {
+      "month": "2011-01",
+      "invoice_count": 888,
+      "is_partial": false,
+      "note": "Full calendar month"
+    },
+    {
+      "month": "2011-02",
+      "invoice_count": 914,
+      "is_partial": false,
+      "note": "Full calendar month"
+    },
+    {
+      "month": "2011-03",
+      "invoice_count": 1208,
+      "is_partial": false,
+      "note": "Full calendar month"
+    },
+    {
+      "month": "2011-04",
+      "invoice_count": 1055,
+      "is_partial": false,
+      "note": "Full calendar month"
+    },
+    {
+      "month": "2011-05",
+      "invoice_count": 1386,
+      "is_partial": false,
+      "note": "Full calendar month"
+    },
+    {
+      "month": "2011-06",
+      "invoice_count": 1256,
+      "is_partial": false,
+      "note": "Full calendar month"
+    },
+    {
+      "month": "2011-07",
+      "invoice_count": 1220,
+      "is_partial": false,
+      "note": "Full calendar month"
+    },
+    {
+      "month": "2011-08",
+      "invoice_count": 1092,
+      "is_partial": false,
+      "note": "Full calendar month"
+    },
+    {
+      "month": "2011-09",
+      "invoice_count": 1535,
+      "is_partial": false,
+      "note": "Full calendar month"
+    },
+    {
+      "month": "2011-10",
+      "invoice_count": 1659,
+      "is_partial": false,
+      "note": "Full calendar month"
+    },
+    {
+      "month": "2011-11",
+      "invoice_count": 2315,
+      "is_partial": false,
+      "note": "Full calendar month"
+    },
+    {
+      "month": "2011-12",
+      "invoice_count": 689,
+      "is_partial": true,
+      "note": "Partial month (ends Dec 9, 2011)"
+    }
+  ],
+  "basket_sizes": {
+    "histogram": [
+      {
+        "bin": "2-4",
+        "count": 2018
+      },
+      {
+        "bin": "5-9",
+        "count": 2868
+      },
+      {
+        "bin": "10-19",
+        "count": 4577
+      },
+      {
+        "bin": "20-49",
+        "count": 5071
+      },
+      {
+        "bin": "50-99",
+        "count": 1357
+      },
+      {
+        "bin": "100-199",
+        "count": 381
+      },
+      {
+        "bin": "200-499",
+        "count": 185
+      },
+      {
+        "bin": "500+",
+        "count": 49
+      }
+    ],
+    "stats": {
+      "mean": 28.61,
+      "median": 17.0,
+      "std": 50.29,
+      "min": 2,
+      "max": 1108,
+      "p25": 8.0,
+      "p75": 30.0
+    }
+  },
+  "country_share": [
+    {
+      "rank": 1,
+      "country": "United Kingdom",
+      "records": 495478,
+      "share_pct": 91.43
+    },
+    {
+      "rank": 2,
+      "country": "Germany",
+      "records": 9495,
+      "share_pct": 1.75
+    },
+    {
+      "rank": 3,
+      "country": "France",
+      "records": 8557,
+      "share_pct": 1.58
+    },
+    {
+      "rank": 4,
+      "country": "EIRE",
+      "records": 8196,
+      "share_pct": 1.51
+    },
+    {
+      "rank": 5,
+      "country": "Spain",
+      "records": 2533,
+      "share_pct": 0.47
+    },
+    {
+      "rank": 6,
+      "country": "Netherlands",
+      "records": 2371,
+      "share_pct": 0.44
+    },
+    {
+      "rank": 7,
+      "country": "Belgium",
+      "records": 2069,
+      "share_pct": 0.38
+    },
+    {
+      "rank": 8,
+      "country": "Switzerland",
+      "records": 2002,
+      "share_pct": 0.37
+    },
+    {
+      "rank": 9,
+      "country": "Portugal",
+      "records": 1519,
+      "share_pct": 0.28
+    },
+    {
+      "rank": 10,
+      "country": "Australia",
+      "records": 1259,
+      "share_pct": 0.23
+    },
+    {
+      "rank": 11,
+      "country": "Other Countries (28+)",
+      "records": 8430,
+      "share_pct": 1.56
+    }
+  ],
+  "raw_outliers": {
+    "quantity": {
+      "min": -80995,
+      "max": 80995,
+      "negative_count": 10624,
+      "zero_count": 0,
+      "extreme_high_count_gt_1000": 116
+    },
+    "unit_price": {
+      "min": -11062.06,
+      "max": 38970.0,
+      "negative_count": 2,
+      "zero_count": 2515,
+      "extreme_high_count_gt_500": 255
+    }
+  }
+}

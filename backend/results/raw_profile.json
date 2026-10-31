@@ -1,0 +1,52 @@
+{
+  "computed": {
+    "total_records": 541909,
+    "columns": [
+      "InvoiceNo",
+      "StockCode",
+      "Description",
+      "Quantity",
+      "InvoiceDate",
+      "UnitPrice",
+      "CustomerID",
+      "Country"
+    ],
+    "dtypes": {
+      "InvoiceNo": "string",
+      "StockCode": "string",
+      "Description": "string",
+      "Quantity": "int64",
+      "InvoiceDate": "datetime64[ns]",
+      "UnitPrice": "float64",
+      "CustomerID": "float64",
+      "Country": "string"
+    },
+    "distinct_invoices": 25900,
+    "distinct_products": 4070,
+    "distinct_customers": 4372,
+    "countries_represented": 38,
+    "missing_counts": {
+      "InvoiceNo": 0,
+      "StockCode": 0,
+      "Description": 1454,
+      "Quantity": 0,
+      "InvoiceDate": 0,
+      "UnitPrice": 0,
+      "CustomerID": 135080,
+      "Country": 0
+    },
+    "date_min": "2010-12-01 08:26:00",
+    "date_max": "2011-12-09 12:50:00"
+  },
+  "ca1_reference": {
+    "total_records": 541909,
+    "distinct_invoices": 25900,
+    "distinct_products": 4070,
+    "distinct_customers": 4372,
+    "countries_represented": 38,
+    "missing_descriptions": 1454,
+    "missing_customer_ids": 135080,
+    "source_note": "Reported in CA1 Table 3.5 from published exploratory profile of UCI dataset"
+  },
+  "discrepancy_explanation": "Computed figures represent the exact counts parsed from the official UCI Online Retail.xlsx dataset. CA1 reference figures were based on preliminary published exploration reports as noted in CA1 \u00a73.5. Both are presented side by side for full academic transparency."
+}

@@ -1,0 +1,14 @@
+{
+  "final_invoice_count": 16429,
+  "final_basket_count": 16506,
+  "total_valid_uk_baskets": 17901,
+  "final_product_count": 1628,
+  "average_basket_size": 28.613716224403248,
+  "median_basket_size": 17.0,
+  "matrix_shape": [
+    16429,
+    1628
+  ],
+  "support_denominator": "baskets_ge_2",
+  "denominator_count": 16506
+}

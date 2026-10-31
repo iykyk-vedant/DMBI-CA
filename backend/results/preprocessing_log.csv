@@ -1,0 +1,12 @@
+step,rule,description,rows_before,rows_after,rows_removed,metadata
+1,Load and inspect,Initial raw dataset loaded from UCI Online Retail repository,541909,541909,0,"{'initial_shape': [541909, 8]}"
+2,Missing keys filter,Drop rows missing InvoiceNo or StockCode. Keep missing CustomerID,541909,541909,0,{}
+3,Cancellation filter,Drop completed cancellation invoices (InvoiceNo prefix 'C'),541909,532621,9288,{}
+4,Invalid values filter,Drop non-positive Quantity (<= 0) and UnitPrice (<= 0),532621,530104,2517,"{'quantity_le_zero_count': 1336, 'unitprice_le_zero_count': 2517, 'both_le_zero_count': 1336}"
+5,Non-product entries filter,"Drop non-product entries (POST, DOT, BANK CHARGES, fees, manual adjustments, invalid code patterns)",530104,527725,2379,"{'top_removed_codes': {'POST': 1126, 'DOT': 706, 'M': 321, 'C2': 141, 'DCGSSGIRL': 13, 'BANK CHARGES': 12, 'DCGSSBOY': 11, 'gift_0001_20': 9, 'gift_0001_10': 8, 'gift_0001_30': 7, 'gift_0001_50': 4, 'DCGS0003': 4, 'PADS': 3, 'gift_0001_40': 3, 'AMAZONFEE': 2, 'S': 2, 'DCGS0076': 2, 'DCGS0070': 1, 'm': 1, 'DCGS0069': 1}}"
+6,Exact duplicates filter,Drop identical duplicate rows across all fields,527725,522504,5221,{}
+7,Text cleaning & Canonical labels,Standardize product descriptions and map each distinct StockCode to its most frequent description,522504,522504,0,{'distinct_products_mapped': 3900}
+8,United Kingdom scope filter,Restrict analysis scope to UK invoices only (as pre-registered in CA1),522504,478838,43666,{}
+9,Basket grouping,Group completed UK transactions by InvoiceNo into sets of distinct StockCodes,478838,17901,0,{'total_valid_baskets': 17901}
+10,Basket-size filter (>= 2 items),Drop single-item baskets for association rule mining (a 1-item basket cannot contain co-purchases),17901,16506,1395,"{'total_valid_baskets': 17901, 'baskets_ge_2': 16506, 'single_item_baskets_removed': 1395, 'support_denominator_chosen': 'baskets_ge_2'}"
+11,One-hot encode & frequency floor,One-hot encode baskets into boolean matrix; pre-filter items below support floor 0.5% (83 baskets) to optimize memory,3890,1628,2262,"{'min_count_floor': 83, 'distinct_items_before': 3890, 'eligible_items_after': 1628}"
