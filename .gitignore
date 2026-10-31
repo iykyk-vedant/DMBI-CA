@@ -1,0 +1,28 @@
+# Environments
+.venv/
+env/
+venv/
+ENV/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Raw and Processed Datasets (large files)
+backend/data/raw/*.xlsx
+backend/data/raw/*.csv
+backend/data/processed/*.parquet
+backend/results/cache/
+
+# Node / Frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
+*.log
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
