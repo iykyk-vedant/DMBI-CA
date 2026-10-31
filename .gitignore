@@ -10,7 +10,7 @@ __pycache__/
 # Raw and Processed Datasets (large files)
 backend/data/raw/*.xlsx
 backend/data/raw/*.csv
-backend/data/processed/*.parquet
+backend/data/processed/raw.parquet
 backend/results/cache/
 
 # Node / Frontend
@@ -26,3 +26,4 @@ Thumbs.db
 .vscode/
 .idea/
 *.swp
+
