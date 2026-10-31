@@ -9,12 +9,15 @@ import {
   Scale,
   Activity,
   ShoppingBag,
+  ShoppingCart,
   CheckCircle2,
   Lightbulb,
   BookOpen,
+  Sparkles,
 } from 'lucide-react';
 
 const NAV_ITEMS = [
+  { path: '/store', label: '🛒 Amazon Store Demo', icon: ShoppingCart, highlight: true },
   { path: '/', label: 'Dashboard', icon: LayoutDashboard },
   { path: '/preprocessing', label: 'Preprocessing', icon: Layers },
   { path: '/eda', label: 'EDA', icon: BarChart3 },
@@ -49,10 +52,21 @@ export const Navbar: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex items-center space-x-2">
-            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-950 text-emerald-400 border border-emerald-800">
+          <div className="flex items-center space-x-3">
+            <Link
+              to="/store"
+              className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-md shadow-emerald-600/30 transition-all border border-emerald-400/30"
+            >
+              <ShoppingCart className="w-3.5 h-3.5" />
+              <span>Amazon Store Demo</span>
+              <span className="bg-emerald-950/80 text-emerald-200 text-[10px] px-1.5 py-0.2 rounded-full font-bold ml-1">
+                LIVE
+              </span>
+            </Link>
+
+            <span className="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-emerald-950/60 text-emerald-400 border border-emerald-800/80 hidden sm:inline-flex">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5 animate-pulse"></span>
-              Live Pipeline
+              16,506 Baskets
             </span>
           </div>
         </div>
@@ -62,12 +76,17 @@ export const Navbar: React.FC = () => {
           {NAV_ITEMS.map((item) => {
             const Icon = item.icon;
             const isActive = location.pathname === item.path;
+            const isHighlight = 'highlight' in item && item.highlight;
             return (
               <Link
                 key={item.path}
                 to={item.path}
                 className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-md font-medium whitespace-nowrap transition-colors ${
-                  isActive
+                  isHighlight
+                    ? isActive
+                      ? 'bg-emerald-600 text-white font-bold shadow-sm shadow-emerald-500/30'
+                      : 'bg-emerald-950/80 hover:bg-emerald-900 text-emerald-300 border border-emerald-800/70 font-semibold'
+                    : isActive
                     ? 'bg-blue-600/20 text-blue-400 border border-blue-500/30'
                     : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
                 }`}

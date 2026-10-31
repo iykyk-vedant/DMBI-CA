@@ -41,6 +41,36 @@ export const DashboardPage: React.FC = () => {
         </div>
       </div>
 
+      {/* Amazon Storefront Live Demo Callout */}
+      <div className="bg-gradient-to-r from-emerald-950/70 via-slate-900 to-teal-950/70 border border-emerald-500/40 rounded-2xl p-5 md:p-6 flex flex-col md:flex-row items-center justify-between gap-4 shadow-xl shadow-emerald-950/30">
+        <div className="flex items-start sm:items-center space-x-4">
+          <div className="w-12 h-12 rounded-xl bg-emerald-600/20 border border-emerald-500/40 flex items-center justify-center shrink-0 text-emerald-400">
+            <Sparkles className="w-6 h-6" />
+          </div>
+          <div>
+            <div className="flex items-center space-x-2">
+              <h2 className="text-base md:text-lg font-bold text-white tracking-tight">
+                Amazon-Style E-Commerce Storefront Demo
+              </h2>
+              <span className="bg-emerald-500 text-slate-950 text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">
+                LIVE DEMO
+              </span>
+            </div>
+            <p className="text-xs text-slate-300 mt-1 max-w-2xl">
+              Demonstrate Market Basket Analysis directly through an authentic <strong>Amazon Fresh (White & Light Green)</strong> shopping experience. Features real-time <em>"Frequently Bought Together"</em> bundles, 1-click cart cross-sells, dynamic cart drawers, and transparent rule proofs.
+            </p>
+          </div>
+        </div>
+
+        <Link
+          to="/store"
+          className="inline-flex items-center space-x-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs px-5 py-3 rounded-xl shadow-lg shadow-emerald-600/30 shrink-0 transition-all border border-emerald-400/40"
+        >
+          <span>Open Amazon Store Demo</span>
+          <ArrowRight className="w-4 h-4" />
+        </Link>
+      </div>
+
       {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
