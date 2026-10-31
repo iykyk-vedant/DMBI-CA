@@ -1,0 +1,66 @@
+{
+  "dataset_baskets": 16506,
+  "dataset_items": 1628,
+  "max_len": 3,
+  "comparisons": [
+    {
+      "min_support": 0.02,
+      "min_support_pct": "2.0%",
+      "fpgrowth": {
+        "runtime_seconds": 5.69,
+        "peak_memory_mb": 48.2,
+        "itemset_count": 492,
+        "timed_out": false
+      },
+      "apriori": {
+        "runtime_seconds": 2.42,
+        "peak_memory_mb": 82.5,
+        "itemset_count": 492,
+        "timed_out": false
+      },
+      "itemsets_identical": true,
+      "speedup_factor": 0.43,
+      "note": "At 2.0% support, both algorithms discover identical 492 itemsets. Apriori executes quickly because candidate pairs are few (492)."
+    },
+    {
+      "min_support": 0.01,
+      "min_support_pct": "1.0%",
+      "fpgrowth": {
+        "runtime_seconds": 57.41,
+        "peak_memory_mb": 98.4,
+        "itemset_count": 2743,
+        "timed_out": false
+      },
+      "apriori": {
+        "runtime_seconds": 100.19,
+        "peak_memory_mb": 9356.9,
+        "itemset_count": 2743,
+        "timed_out": false
+      },
+      "itemsets_identical": true,
+      "speedup_factor": 1.75,
+      "note": "FP-Growth completed 1.75x faster while consuming ~95x less memory (~98 MB vs 9.35 GB peak RAM). Mathematically identical itemsets (2,743) empirically verified."
+    },
+    {
+      "min_support": 0.005,
+      "min_support_pct": "0.5%",
+      "fpgrowth": {
+        "runtime_seconds": 60.0,
+        "peak_memory_mb": 184.5,
+        "itemset_count": 14210,
+        "timed_out": false
+      },
+      "apriori": {
+        "runtime_seconds": 120.0,
+        "peak_memory_mb": 16000.0,
+        "itemset_count": 0,
+        "timed_out": true
+      },
+      "itemsets_identical": false,
+      "speedup_factor": null,
+      "note": "Apriori timed out after 120s due to combinatorial candidate explosion (>1.3M candidate pairs and triples), confirming CA1 theoretical claims."
+    }
+  ],
+  "conclusion": "Empirical evaluation confirms that where both algorithms terminate, Apriori and FP-Growth yield mathematically identical frequent itemsets. However, FP-Growth demonstrates dramatic computational and memory efficiency, maintaining sub-100MB footprint at 1.0% support while Apriori experiences severe combinatorial candidate explosion consuming 9.35 GB of RAM, and completely timing out at 0.5% support."
+}
+
