@@ -1,0 +1,30 @@
+[
+  {
+    "mining_insight": "Pair [REGENCY SUGAR BOWL GREEN] -> [REGENCY MILK JUG PINK] has Support 1.20% and Lift 46.65",
+    "validation_before_action": "Check confidence (77.0%), commercial synergy, and inventory availability.",
+    "possible_decision": "Test as an on-page 'Frequently Bought Together' widget and cart add-on.",
+    "example_rule_id": "rule_1822",
+    "category": "Cross-Selling / Recommendation"
+  },
+  {
+    "mining_insight": "Set [HERB MARKER ROSEMARY] -> [HERB MARKER THYME] has high co-occurrence (Confidence 94.5%, Lift 75.03)",
+    "validation_before_action": "Check product margins and bundle discount feasibility.",
+    "possible_decision": "Package products together as a discounted multi-pack or gift set bundle.",
+    "example_rule_id": "rule_891",
+    "category": "Product Bundling"
+  },
+  {
+    "mining_insight": "Rule [JUMBO BAG VINTAGE DOILY] -> [JUMBO BAG RED RETROSPOT] has high confidence (50.5%) but lower Lift (4.33)",
+    "validation_before_action": "Recognize that 'JUMBO BAG RED RETROSPOT' is already a high-volume universal product.",
+    "possible_decision": "Do not prioritize on confidence alone; avoid crowding recommendation slots with items the customer would buy anyway.",
+    "example_rule_id": "rule_1780",
+    "category": "Popularity Guardrail"
+  },
+  {
+    "mining_insight": "Rule [HERB MARKER THYME] -> [HERB MARKER PARSLEY] has active correlation but target may experience stockouts",
+    "validation_before_action": "Verify real-time warehouse inventory and viable substitutes.",
+    "possible_decision": "Suppress recommendation dynamically when consequent is out of stock to preserve customer trust.",
+    "example_rule_id": "rule_859",
+    "category": "Inventory Guardrail"
+  }
+]
