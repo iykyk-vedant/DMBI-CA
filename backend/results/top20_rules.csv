@@ -1,0 +1,21 @@
+id,antecedents,consequents,support,confidence,lift,leverage,conviction,rule_type,actionable,reason
+rule_891,HERB MARKER ROSEMARY + HERB MARKER CHIVES,HERB MARKER THYME + HERB MARKER PARSLEY,0.0105,0.9454,75.0301,0.0104,18.0694,variant,True,Color/design variant of the same product line
+rule_894,HERB MARKER THYME + HERB MARKER PARSLEY,HERB MARKER ROSEMARY + HERB MARKER CHIVES,0.0105,0.8357,75.0301,0.0104,6.0204,variant,True,Color/design variant of the same product line
+rule_895,HERB MARKER ROSEMARY + HERB MARKER PARSLEY,HERB MARKER THYME + HERB MARKER CHIVES,0.0105,0.8357,74.6224,0.0104,6.02,variant,True,Color/design variant of the same product line
+rule_890,HERB MARKER THYME + HERB MARKER CHIVES,HERB MARKER ROSEMARY + HERB MARKER PARSLEY,0.0105,0.9402,74.6224,0.0104,16.5165,variant,True,Color/design variant of the same product line
+rule_921,HERB MARKER ROSEMARY + HERB MARKER CHIVES,HERB MARKER THYME + HERB MARKER MINT,0.0101,0.9071,74.514,0.01,10.6337,variant,True,Color/design variant of the same product line
+rule_920,HERB MARKER THYME + HERB MARKER MINT,HERB MARKER ROSEMARY + HERB MARKER CHIVES,0.0101,0.83,74.514,0.01,5.8168,variant,True,Color/design variant of the same product line
+rule_861,HERB MARKER PARSLEY + HERB MARKER CHIVES,HERB MARKER THYME + HERB MARKER MINT,0.0102,0.8984,73.7987,0.0101,9.7223,variant,True,Color/design variant of the same product line
+rule_860,HERB MARKER THYME + HERB MARKER MINT,HERB MARKER PARSLEY + HERB MARKER CHIVES,0.0102,0.84,73.7987,0.0101,6.1789,variant,True,Color/design variant of the same product line
+rule_909,HERB MARKER PARSLEY + HERB MARKER MINT,HERB MARKER ROSEMARY + HERB MARKER CHIVES,0.0102,0.8195,73.5725,0.0101,5.4788,variant,True,Color/design variant of the same product line
+rule_904,HERB MARKER ROSEMARY + HERB MARKER CHIVES,HERB MARKER PARSLEY + HERB MARKER MINT,0.0102,0.918,73.5725,0.0101,12.0478,variant,True,Color/design variant of the same product line
+rule_859,HERB MARKER THYME + HERB MARKER CHIVES,HERB MARKER PARSLEY + HERB MARKER MINT,0.0102,0.913,73.1726,0.0101,11.3565,variant,True,Color/design variant of the same product line
+rule_862,HERB MARKER PARSLEY + HERB MARKER MINT,HERB MARKER THYME + HERB MARKER CHIVES,0.0102,0.8195,73.1726,0.0101,5.4785,variant,True,Color/design variant of the same product line
+rule_863,HERB MARKER MINT + HERB MARKER CHIVES,HERB MARKER THYME + HERB MARKER PARSLEY,0.0102,0.913,72.4657,0.0101,11.3551,variant,True,Color/design variant of the same product line
+rule_906,HERB MARKER MINT + HERB MARKER CHIVES,HERB MARKER ROSEMARY + HERB MARKER PARSLEY,0.0102,0.913,72.4657,0.0101,11.3551,variant,True,Color/design variant of the same product line
+rule_858,HERB MARKER THYME + HERB MARKER PARSLEY,HERB MARKER MINT + HERB MARKER CHIVES,0.0102,0.8116,72.4657,0.0101,5.2482,variant,True,Color/design variant of the same product line
+rule_907,HERB MARKER ROSEMARY + HERB MARKER PARSLEY,HERB MARKER MINT + HERB MARKER CHIVES,0.0102,0.8116,72.4657,0.0101,5.2482,variant,True,Color/design variant of the same product line
+rule_855,HERB MARKER THYME + HERB MARKER PARSLEY + HERB MARKER MINT,HERB MARKER CHIVES,0.0102,0.8936,72.3213,0.0101,9.2839,variant,True,Color/design variant of the same product line
+rule_866,HERB MARKER CHIVES,HERB MARKER THYME + HERB MARKER PARSLEY + HERB MARKER MINT,0.0102,0.8276,72.3213,0.0101,5.7336,variant,True,Color/design variant of the same product line
+rule_919,HERB MARKER THYME + HERB MARKER CHIVES,HERB MARKER ROSEMARY + HERB MARKER MINT,0.0101,0.9022,72.3015,0.01,10.0947,variant,True,Color/design variant of the same product line
+rule_922,HERB MARKER ROSEMARY + HERB MARKER MINT,HERB MARKER THYME + HERB MARKER CHIVES,0.0101,0.8098,72.3015,0.01,5.1975,variant,True,Color/design variant of the same product line
