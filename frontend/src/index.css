@@ -2,7 +2,7 @@
 
 @layer base {
   body {
-    @apply bg-slate-950 text-slate-100 antialiased font-sans;
+    @apply bg-[#FAFBFB] text-slate-800 antialiased font-sans selection:bg-emerald-600 selection:text-white;
     min-height: 100vh;
   }
 }

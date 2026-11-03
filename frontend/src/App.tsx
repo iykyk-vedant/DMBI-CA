@@ -1,20 +1,16 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Navbar } from './components/Navbar';
+import { CartProvider } from './context/CartContext';
+import { StoreHeader } from './components/store/StoreHeader';
+import { StoreFooter } from './components/store/StoreFooter';
+import { CartDrawer } from './components/store/CartDrawer';
 
-import { DashboardPage } from './pages/DashboardPage';
-import { PreprocessingPage } from './pages/PreprocessingPage';
-import { EdaPage } from './pages/EdaPage';
-import { ExplorerPage } from './pages/ExplorerPage';
-import { VisualisationsPage } from './pages/VisualisationsPage';
-import { ComparisonPage } from './pages/ComparisonPage';
-import { SensitivityPage } from './pages/SensitivityPage';
-import { RecommenderPage } from './pages/RecommenderPage';
-import { EvaluationPage } from './pages/EvaluationPage';
-import { InsightsPage } from './pages/InsightsPage';
-import { MethodologyPage } from './pages/MethodologyPage';
-import { StorefrontPage } from './pages/StorefrontPage';
+import { StoreHomePage } from './pages/store/StoreHomePage';
+import { ProductDetailPage } from './pages/store/ProductDetailPage';
+import { CategoriesPage } from './pages/store/CategoriesPage';
+import { CartPage } from './pages/store/CartPage';
+import { FacultyStudioPage } from './pages/FacultyStudioPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -25,37 +21,56 @@ const queryClient = new QueryClient({
   },
 });
 
+const StoreLayout: React.FC = () => {
+  return (
+    <div className="min-h-screen bg-[#FAFBFB] text-slate-800 flex flex-col font-sans selection:bg-emerald-600 selection:text-white">
+      <StoreHeader />
+      <main className="flex-1">
+        <Outlet />
+      </main>
+      <StoreFooter />
+      <CartDrawer />
+    </div>
+  );
+};
+
 export const App: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-blue-600 selection:text-white">
-          <Navbar />
-          <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <Routes>
-              <Route path="/" element={<DashboardPage />} />
-              <Route path="/store" element={<StorefrontPage />} />
-              <Route path="/amazon" element={<StorefrontPage />} />
-              <Route path="/preprocessing" element={<PreprocessingPage />} />
-              <Route path="/eda" element={<EdaPage />} />
-              <Route path="/explorer" element={<ExplorerPage />} />
-              <Route path="/visualisations" element={<VisualisationsPage />} />
-              <Route path="/comparison" element={<ComparisonPage />} />
-              <Route path="/sensitivity" element={<SensitivityPage />} />
-              <Route path="/recommender" element={<RecommenderPage />} />
-              <Route path="/evaluation" element={<EvaluationPage />} />
-              <Route path="/insights" element={<InsightsPage />} />
-              <Route path="/methodology" element={<MethodologyPage />} />
-            </Routes>
-          </main>
-          <footer className="border-t border-slate-900 bg-slate-950/60 py-6 text-center text-xs text-slate-500">
-            <p>Data Mining & Business Intelligence (DMBI) Continuous Assessment - 2 • V.E.S.I.T. Autonomous Institute</p>
-            <p className="mt-1 text-[11px] text-slate-600">
-              Vedant Gharat (50) • Ayush Lokhande (55) • Deepak Nishad (59) • Ayush Yadav (69) • Sem-5 D15B
-            </p>
-          </footer>
-        </div>
-      </BrowserRouter>
+      <CartProvider>
+        <BrowserRouter>
+          <Routes>
+            {/* 1. Main E-Commerce Application Routes */}
+            <Route element={<StoreLayout />}>
+              <Route path="/" element={<StoreHomePage />} />
+              <Route path="/product/:code" element={<ProductDetailPage />} />
+              <Route path="/categories" element={<CategoriesPage />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="/store" element={<StoreHomePage />} />
+              <Route path="/amazon" element={<StoreHomePage />} />
+            </Route>
+
+            {/* 2. Isolated Faculty Analytics Studio (Academic / Evaluation Only) */}
+            <Route path="/analytics" element={<FacultyStudioPage />} />
+
+            {/* 3. Redirect legacy academic routes to the isolated Faculty Studio */}
+            <Route path="/dashboard" element={<Navigate to="/analytics" replace />} />
+            <Route path="/preprocessing" element={<Navigate to="/analytics" replace />} />
+            <Route path="/eda" element={<Navigate to="/analytics" replace />} />
+            <Route path="/explorer" element={<Navigate to="/analytics" replace />} />
+            <Route path="/visualisations" element={<Navigate to="/analytics" replace />} />
+            <Route path="/comparison" element={<Navigate to="/analytics" replace />} />
+            <Route path="/sensitivity" element={<Navigate to="/analytics" replace />} />
+            <Route path="/recommender" element={<Navigate to="/analytics" replace />} />
+            <Route path="/evaluation" element={<Navigate to="/analytics" replace />} />
+            <Route path="/insights" element={<Navigate to="/analytics" replace />} />
+            <Route path="/methodology" element={<Navigate to="/analytics" replace />} />
+
+            {/* Fallback to Home */}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </BrowserRouter>
+      </CartProvider>
     </QueryClientProvider>
   );
 };
