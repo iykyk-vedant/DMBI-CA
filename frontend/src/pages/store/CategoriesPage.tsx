@@ -184,3 +184,4 @@ export const CategoriesPage: React.FC = () => {
     </div>
   );
 };
+

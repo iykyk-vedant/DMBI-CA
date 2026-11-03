@@ -330,3 +330,4 @@ export const StoreHomePage: React.FC = () => {
     </div>
   );
 };
+

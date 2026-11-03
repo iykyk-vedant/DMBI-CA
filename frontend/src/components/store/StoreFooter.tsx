@@ -153,3 +153,4 @@ export const StoreFooter: React.FC = () => {
     </footer>
   );
 };
+

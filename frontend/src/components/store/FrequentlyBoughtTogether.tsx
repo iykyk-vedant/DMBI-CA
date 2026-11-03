@@ -178,3 +178,4 @@ export const FrequentlyBoughtTogether: React.FC<FrequentlyBoughtTogetherProps> =
     </section>
   );
 };
+

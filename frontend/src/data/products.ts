@@ -476,3 +476,4 @@ export function formatTitleCase(str: string): string {
     .join(' ')
     .trim();
 }
+

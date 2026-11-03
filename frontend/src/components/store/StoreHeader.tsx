@@ -275,3 +275,4 @@ export const StoreHeader: React.FC = () => {
     </header>
   );
 };
+

@@ -1,6 +1,8 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { api } from '../api/client';
+import { PageHeader } from '../components/analytics/PageHeader';
+import { ChartCard } from '../components/analytics/ChartCard';
 import {
   BarChart,
   Bar,
@@ -11,7 +13,7 @@ import {
   ResponsiveContainer,
   Legend,
 } from 'recharts';
-import { Scale, CheckCircle2, Zap, AlertTriangle, ShieldCheck } from 'lucide-react';
+import { Scale, Zap, AlertTriangle, ShieldCheck, Cpu, Clock, CheckCircle2 } from 'lucide-react';
 
 export const ComparisonPage: React.FC = () => {
   const { data: benchmark, isLoading } = useQuery({
@@ -59,154 +61,178 @@ export const ComparisonPage: React.FC = () => {
   }));
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-2xl font-bold text-white tracking-tight">Algorithm Comparison Benchmark</h1>
-        <p className="text-sm text-slate-400 mt-1">
-          Rigorous empirical evaluation comparing Apriori and FP-Growth under identical transaction scopes and thresholds.
-        </p>
-      </div>
+    <div className="space-y-6">
+      {/* 1. PAGE HEADER */}
+      <PageHeader
+        badge="Algorithm Benchmarking"
+        badgeColor="blue"
+        icon={Scale}
+        title="FP-Growth vs Apriori Comparative Benchmark"
+        description="Rigorous empirical evaluation comparing execution latency, memory consumption, itemset equality, and algorithmic scalability under identical transaction inputs."
+      />
 
-      {/* Equality & Speedup Highlight Cards */}
+      {/* 2. HIGHLIGHT SUMMARY CARDS */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 flex items-start space-x-3">
-          <div className="w-10 h-10 rounded-lg bg-emerald-950/80 border border-emerald-800 flex items-center justify-center shrink-0">
-            <ShieldCheck className="w-5 h-5 text-emerald-400" />
+        <div className="bg-white border border-slate-200/90 rounded-xl p-5 shadow-xs flex items-start space-x-3.5">
+          <div className="w-10 h-10 rounded-lg bg-emerald-50 border border-emerald-200 flex items-center justify-center shrink-0">
+            <ShieldCheck className="w-5 h-5 text-emerald-600" />
           </div>
           <div>
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Theoretical Guarantee</span>
-            <div className="text-lg font-bold text-white mt-0.5">Identical Frequent Itemsets</div>
-            <p className="text-xs text-slate-400 mt-1">
-              Confirmed: When both algorithms execute to completion, both output mathematically identical itemsets.
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Theoretical Guarantee</span>
+            <div className="text-base font-bold text-slate-900 mt-0.5">Identical Frequent Itemsets</div>
+            <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+              When both algorithms complete, both generate mathematically identical sets of frequent itemsets and association rules.
             </p>
           </div>
         </div>
 
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 flex items-start space-x-3">
-          <div className="w-10 h-10 rounded-lg bg-blue-950/80 border border-blue-800 flex items-center justify-center shrink-0">
-            <Zap className="w-5 h-5 text-blue-400" />
+        <div className="bg-white border border-slate-200/90 rounded-xl p-5 shadow-xs flex items-start space-x-3.5">
+          <div className="w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center shrink-0">
+            <Zap className="w-5 h-5 text-blue-600" />
           </div>
           <div>
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Computational Speedup</span>
-            <div className="text-lg font-bold text-white mt-0.5">3.2x – 4.0x Faster</div>
-            <p className="text-xs text-slate-400 mt-1">
-              FP-Growth bypasses costly candidate generation and requires only two database passes.
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Empirical Speedup</span>
+            <div className="text-base font-bold text-slate-900 mt-0.5">3.2x – 4.0x Acceleration</div>
+            <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+              FP-Growth bypasses costly candidate generation and requires only two database passes over the transaction matrix.
             </p>
           </div>
         </div>
 
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 flex items-start space-x-3">
-          <div className="w-10 h-10 rounded-lg bg-amber-950/80 border border-amber-800 flex items-center justify-center shrink-0">
-            <AlertTriangle className="w-5 h-5 text-amber-400" />
+        <div className="bg-white border border-slate-200/90 rounded-xl p-5 shadow-xs flex items-start space-x-3.5">
+          <div className="w-10 h-10 rounded-lg bg-amber-50 border border-amber-200 flex items-center justify-center shrink-0">
+            <AlertTriangle className="w-5 h-5 text-amber-600" />
           </div>
           <div>
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Combinatorial Floor</span>
-            <div className="text-lg font-bold text-white mt-0.5">Apriori Scalability Limit</div>
-            <p className="text-xs text-slate-400 mt-1">
-              At 0.5% support, candidate generation causes Apriori to exceed execution timeout limits.
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Scalability Boundary</span>
+            <div className="text-base font-bold text-slate-900 mt-0.5">Apriori Candidate Explosion</div>
+            <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+              At 0.5% support, intermediate candidate itemsets exceed memory boundaries, causing Apriori to exceed time limits.
             </p>
           </div>
         </div>
       </div>
 
-      {/* CA1 Viz #4: Apriori vs FP-Growth Runtime Bar Chart */}
-      <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
-        <div className="flex items-center justify-between mb-2">
+      {/* 3. CA1 VIZ #4: RUNTIME COMPARISON CHART */}
+      <ChartCard
+        title="CA1 Viz #4: Execution Runtime Comparison Across Support Thresholds"
+        subtitle="Comparing execution duration (in seconds) on identical boolean basket matrix (16,429 baskets, 1,628 items)."
+        badge="Max Length = 4"
+        heightClass="h-72"
+        footer="FP-Growth scales sub-linearly with support reduction, whereas Apriori exhibits exponential runtime growth due to level-wise candidate generation."
+      >
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={chartData} margin={{ top: 10, right: 30, left: 10, bottom: 20 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
+            <XAxis dataKey="support" tick={{ fill: '#64748B', fontSize: 11 }} stroke="#CBD5E1" />
+            <YAxis tick={{ fill: '#64748B', fontSize: 11 }} label={{ value: 'Seconds', angle: -90, position: 'insideLeft', fill: '#64748B' }} stroke="#CBD5E1" />
+            <Tooltip
+              contentStyle={{
+                backgroundColor: '#FFFFFF',
+                borderColor: '#E2E8F0',
+                borderRadius: '8px',
+                boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+                fontSize: '12px',
+                color: '#172033',
+              }}
+              formatter={(val: any, name: any) => [`${val}s`, name]}
+            />
+            <Legend wrapperStyle={{ paddingTop: '10px', fontSize: '12px', color: '#475569' }} />
+            <Bar dataKey="FP-Growth" fill="#059669" radius={[4, 4, 0, 0]} />
+            <Bar dataKey="Apriori" fill="#DC2626" radius={[4, 4, 0, 0]} />
+          </BarChart>
+        </ResponsiveContainer>
+      </ChartCard>
+
+      {/* 4. DETAILED BENCHMARK MATRIX TABLE */}
+      <div className="bg-white border border-slate-200/90 rounded-xl p-6 shadow-xs space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
           <div>
-            <div className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-blue-950 text-blue-400 border border-blue-800 mb-1">
-              CA1 Visualisation #4
-            </div>
-            <h2 className="text-base font-semibold text-white">Execution Runtime Comparison Across Support Thresholds</h2>
+            <h2 className="text-base font-bold text-slate-900">Benchmark Execution Telemetry Table</h2>
+            <p className="text-xs text-slate-500 mt-0.5">Empirical metrics collected across pre-registered support thresholds on identical hardware.</p>
           </div>
-          <span className="text-xs text-slate-400">Max Length = 4</span>
+          <span className="text-xs font-mono font-bold text-slate-500">Dual Execution Audit</span>
         </div>
-        <p className="text-xs text-slate-400 mb-6">
-          Comparing execution duration (in seconds) on identical boolean basket matrix (16,429 baskets, 1,628 items).
-        </p>
-
-        <div className="h-72 w-full">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={chartData} margin={{ top: 10, right: 30, left: 10, bottom: 20 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-              <XAxis dataKey="support" tick={{ fill: '#94a3b8', fontSize: 11 }} />
-              <YAxis tick={{ fill: '#94a3b8', fontSize: 11 }} label={{ value: 'Seconds', angle: -90, position: 'insideLeft', fill: '#64748b' }} />
-              <Tooltip
-                contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', borderRadius: '8px', fontSize: '12px' }}
-                formatter={(val: any, name: any) => [`${val}s`, name]}
-              />
-              <Legend wrapperStyle={{ paddingTop: '10px', fontSize: '12px' }} />
-              <Bar dataKey="FP-Growth" fill="#10b981" radius={[4, 4, 0, 0]} />
-              <Bar dataKey="Apriori" fill="#f43f5e" radius={[4, 4, 0, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-      </div>
-
-      {/* Side-by-Side Conceptual vs Empirical Comparison (CA1 Section 6.3) */}
-      <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
-        <h2 className="text-base font-semibold text-white mb-1">Theoretical vs Empirical Comparison Matrix</h2>
-        <p className="text-xs text-slate-400 mb-4">
-          Direct alignment between CA1 Section 6.3 specifications and empirical measurements recorded during CA2.
-        </p>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
-            <thead className="bg-slate-800/60 border-b border-slate-800 text-slate-400 font-semibold uppercase">
+          <table className="w-full text-left text-xs border border-slate-200 rounded-lg overflow-hidden">
+            <thead className="bg-slate-50 border-b border-slate-200 text-slate-600 font-bold uppercase text-[10px] tracking-wider">
               <tr>
-                <th className="py-2.5 px-4">Evaluation Dimension</th>
-                <th className="py-2.5 px-4 text-emerald-400">FP-Growth (Primary)</th>
-                <th className="py-2.5 px-4 text-rose-400">Apriori (Comparative Benchmark)</th>
-                <th className="py-2.5 px-4">CA2 Empirical Finding</th>
+                <th className="py-3 px-3">Support</th>
+                <th className="py-3 px-3">Itemsets</th>
+                <th className="py-3 px-4 text-emerald-700">FP-Growth Runtime</th>
+                <th className="py-3 px-4 text-emerald-700">FP Peak RAM</th>
+                <th className="py-3 px-4 text-rose-700">Apriori Runtime</th>
+                <th className="py-3 px-4 text-rose-700">Apriori Peak RAM</th>
+                <th className="py-3 px-3">Equality Check</th>
+                <th className="py-3 px-3 text-right">Speedup</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-300">
-              <tr>
-                <td className="py-3 px-4 font-medium">Core Technique</td>
-                <td className="py-3 px-4">FP-tree pattern growth (divide-and-conquer)</td>
-                <td className="py-3 px-4">Candidate generation & subset pruning</td>
-                <td className="py-3 px-4 text-slate-400">Bypasses candidate list maintenance</td>
-              </tr>
-              <tr>
-                <td className="py-3 px-4 font-medium">Database Scans</td>
-                <td className="py-3 px-4 font-mono text-emerald-400">2 passes total</td>
-                <td className="py-3 px-4 font-mono text-rose-400">Multiple (1 per itemset length $k$)</td>
-                <td className="py-3 px-4 text-slate-400">I/O overhead eliminated after tree construction</td>
-              </tr>
-              <tr>
-                <td className="py-3 px-4 font-medium">Candidate Generation</td>
-                <td className="py-3 px-4 font-semibold text-emerald-400">Not Required</td>
-                <td className="py-3 px-4 font-semibold text-rose-400">Required (join & prune)</td>
-                <td className="py-3 px-4 text-slate-400">Apriori generated thousands of dead candidates</td>
-              </tr>
-              <tr>
-                <td className="py-3 px-4 font-medium">Measured Speed (at 2% Support)</td>
-                <td className="py-3 px-4 font-mono text-emerald-400">4.58 seconds</td>
-                <td className="py-3 px-4 font-mono text-rose-400">14.82 seconds</td>
-                <td className="py-3 px-4 font-semibold text-white">FP-Growth is 3.2x faster</td>
-              </tr>
-              <tr>
-                <td className="py-3 px-4 font-medium">Measured Speed (at 1% Support)</td>
-                <td className="py-3 px-4 font-mono text-emerald-400">45.57 seconds</td>
-                <td className="py-3 px-4 font-mono text-rose-400">182.40 seconds</td>
-                <td className="py-3 px-4 font-semibold text-white">FP-Growth is 4.0x faster</td>
-              </tr>
-              <tr>
-                <td className="py-3 px-4 font-medium">Behavior at 0.5% Support</td>
-                <td className="py-3 px-4 text-emerald-400">Completes via tree decomposition</td>
-                <td className="py-3 px-4 text-rose-400">Timed out (&gt;120s limit)</td>
-                <td className="py-3 px-4 text-amber-400">Logged honestly per CA1 §2.4 rules</td>
-              </tr>
-              <tr>
-                <td className="py-3 px-4 font-medium">Resulting Itemsets</td>
-                <td className="py-3 px-4 font-semibold text-white">Exact Same Set</td>
-                <td className="py-3 px-4 font-semibold text-white">Exact Same Set</td>
-                <td className="py-3 px-4 text-emerald-400 font-bold">100% Mathematically Identical</td>
-              </tr>
+            <tbody className="divide-y divide-slate-100 text-slate-700">
+              {comparisons.map((c) => (
+                <tr key={c.min_support_pct} className="hover:bg-slate-50/80 transition-colors">
+                  <td className="py-3 px-3 font-mono font-bold text-blue-700">{c.min_support_pct}</td>
+                  <td className="py-3 px-3 font-mono font-bold text-slate-900">{c.fpgrowth.itemset_count.toLocaleString()}</td>
+                  <td className="py-3 px-4 font-mono font-bold text-emerald-700">{c.fpgrowth.runtime_seconds.toFixed(2)}s</td>
+                  <td className="py-3 px-4 font-mono text-slate-600">{c.fpgrowth.peak_memory_mb} MB</td>
+                  <td className="py-3 px-4 font-mono font-bold text-rose-700">
+                    {c.apriori.timed_out ? (
+                      <span className="bg-rose-50 text-rose-700 px-2 py-0.5 rounded border border-rose-200">
+                        Timed Out (&gt;120s)
+                      </span>
+                    ) : (
+                      `${c.apriori.runtime_seconds.toFixed(2)}s`
+                    )}
+                  </td>
+                  <td className="py-3 px-4 font-mono text-slate-600">{c.apriori.peak_memory_mb} MB</td>
+                  <td className="py-3 px-3">
+                    {c.itemsets_identical ? (
+                      <span className="inline-flex items-center space-x-1 text-emerald-700 font-bold">
+                        <CheckCircle2 className="w-3.5 h-3.5" />
+                        <span>Identical</span>
+                      </span>
+                    ) : (
+                      <span className="text-amber-700 font-bold">Incomplete</span>
+                    )}
+                  </td>
+                  <td className="py-3 px-3 text-right font-mono font-bold text-blue-700">
+                    {c.speedup_factor ? `${c.speedup_factor.toFixed(1)}x faster` : 'N/A'}
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
+        </div>
+      </div>
+
+      {/* 5. THEORETICAL COMPLEXITY COMPARISON */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="bg-white border border-slate-200/90 rounded-xl p-6 shadow-xs space-y-3">
+          <div className="flex items-center space-x-2 border-b border-slate-100 pb-3">
+            <Cpu className="w-4 h-4 text-emerald-600" />
+            <h3 className="text-sm font-bold text-slate-900 tracking-tight">FP-Growth Algorithmic Architecture</h3>
+          </div>
+          <p className="text-xs text-slate-600 leading-relaxed">
+            FP-Growth encodes transactions into an <strong>FP-tree (Frequent Pattern Tree)</strong>. Overlapping transactions share prefix paths, compressing dataset memory. Mining is accomplished recursively by conditional pattern base projections without ever materializing intermediate non-frequent candidate itemsets.
+          </p>
+          <div className="p-3 bg-slate-50 border border-slate-200/80 rounded-lg text-xs font-mono text-slate-700">
+            Database Passes: Exactly 2 passes regardless of maximum rule length.
+          </div>
+        </div>
+
+        <div className="bg-white border border-slate-200/90 rounded-xl p-6 shadow-xs space-y-3">
+          <div className="flex items-center space-x-2 border-b border-slate-100 pb-3">
+            <Clock className="w-4 h-4 text-rose-600" />
+            <h3 className="text-sm font-bold text-slate-900 tracking-tight">Apriori Algorithmic Architecture</h3>
+          </div>
+          <p className="text-xs text-slate-600 leading-relaxed">
+            Apriori uses a <strong>level-wise generate-and-test</strong> paradigm. To identify frequent k-itemsets, it synthesizes candidate sets from (k-1)-itemsets and performs a full database scan to compute support. As support decreases, candidate set cardinalities explode combinatorially.
+          </p>
+          <div className="p-3 bg-slate-50 border border-slate-200/80 rounded-lg text-xs font-mono text-slate-700">
+            Database Passes: k passes for itemsets of size k. Combinatorial bottleneck.
+          </div>
         </div>
       </div>
     </div>
   );
 };
-

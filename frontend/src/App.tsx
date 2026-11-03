@@ -53,18 +53,18 @@ export const App: React.FC = () => {
             {/* 2. Isolated Faculty Analytics Studio (Academic / Evaluation Only) */}
             <Route path="/analytics" element={<FacultyStudioPage />} />
 
-            {/* 3. Redirect legacy academic routes to the isolated Faculty Studio */}
-            <Route path="/dashboard" element={<Navigate to="/analytics" replace />} />
-            <Route path="/preprocessing" element={<Navigate to="/analytics" replace />} />
-            <Route path="/eda" element={<Navigate to="/analytics" replace />} />
-            <Route path="/explorer" element={<Navigate to="/analytics" replace />} />
-            <Route path="/visualisations" element={<Navigate to="/analytics" replace />} />
-            <Route path="/comparison" element={<Navigate to="/analytics" replace />} />
-            <Route path="/sensitivity" element={<Navigate to="/analytics" replace />} />
-            <Route path="/recommender" element={<Navigate to="/analytics" replace />} />
-            <Route path="/evaluation" element={<Navigate to="/analytics" replace />} />
-            <Route path="/insights" element={<Navigate to="/analytics" replace />} />
-            <Route path="/methodology" element={<Navigate to="/analytics" replace />} />
+            {/* 3. Redirect legacy academic routes to the isolated Faculty Studio with active tab */}
+            <Route path="/dashboard" element={<Navigate to="/analytics?tab=dashboard" replace />} />
+            <Route path="/preprocessing" element={<Navigate to="/analytics?tab=preprocessing" replace />} />
+            <Route path="/eda" element={<Navigate to="/analytics?tab=eda" replace />} />
+            <Route path="/explorer" element={<Navigate to="/analytics?tab=explorer" replace />} />
+            <Route path="/visualisations" element={<Navigate to="/analytics?tab=visualisations" replace />} />
+            <Route path="/comparison" element={<Navigate to="/analytics?tab=comparison" replace />} />
+            <Route path="/sensitivity" element={<Navigate to="/analytics?tab=sensitivity" replace />} />
+            <Route path="/recommender" element={<Navigate to="/analytics?tab=recommender" replace />} />
+            <Route path="/evaluation" element={<Navigate to="/analytics?tab=evaluation" replace />} />
+            <Route path="/insights" element={<Navigate to="/analytics?tab=insights" replace />} />
+            <Route path="/methodology" element={<Navigate to="/analytics?tab=methodology" replace />} />
 
             {/* Fallback to Home */}
             <Route path="*" element={<Navigate to="/" replace />} />

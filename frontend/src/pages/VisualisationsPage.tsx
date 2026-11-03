@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { api } from '../api/client';
+import { PageHeader } from '../components/analytics/PageHeader';
+import { ChartCard } from '../components/analytics/ChartCard';
 import {
   BarChart,
   Bar,
@@ -13,7 +15,7 @@ import {
   Scatter,
   ZAxis,
 } from 'recharts';
-import { LineChart, BarChart2, Share2, Filter } from 'lucide-react';
+import { LineChart, BarChart2, Share2, Filter, Sparkles, Layers } from 'lucide-react';
 import { AssociationRule } from '../types';
 
 export const VisualisationsPage: React.FC = () => {
@@ -30,22 +32,25 @@ export const VisualisationsPage: React.FC = () => {
   );
 
   // CA1 Viz #2: Top Rules Ranked by Lift
-  const topRulesData = rules.slice(0, topN).map((r) => {
-    const ant = r.antecedents[0]?.label || 'A';
-    const con = r.consequents[0]?.label || 'B';
-    const shortAnt = ant.length > 18 ? ant.substring(0, 18) + '...' : ant;
-    const shortCon = con.length > 18 ? con.substring(0, 18) + '...' : con;
-    return {
-      name: `${shortAnt} → ${shortCon}`,
-      fullName: `${ant} → ${con}`,
-      lift: r.lift,
-      confidence: r.confidence * 100,
-      support: r.support * 100,
-      ruleType: r.rule_type,
-    };
-  }).reverse();
+  const topRulesData = rules
+    .slice(0, topN)
+    .map((r) => {
+      const ant = r.antecedents[0]?.label || 'A';
+      const con = r.consequents[0]?.label || 'B';
+      const shortAnt = ant.length > 20 ? ant.substring(0, 20) + '...' : ant;
+      const shortCon = con.length > 20 ? con.substring(0, 20) + '...' : con;
+      return {
+        name: `${shortAnt} → ${shortCon}`,
+        fullName: `${ant} → ${con}`,
+        lift: r.lift,
+        confidence: r.confidence * 100,
+        support: r.support * 100,
+        ruleType: r.rule_type,
+      };
+    })
+    .reverse();
 
-  // CA1 Viz #3: Support vs Confidence Scatter Plot (Lift as Z / Color)
+  // CA1 Viz #3: Support vs Confidence Scatter Plot (Lift as Z / Bubble Size)
   const scatterData = rules.slice(0, 60).map((r) => ({
     support: +(r.support * 100).toFixed(2),
     confidence: +(r.confidence * 100).toFixed(1),
@@ -78,7 +83,7 @@ export const VisualisationsPage: React.FC = () => {
   const nodes = Array.from(nodesMap.values());
   const width = 640;
   const height = 360;
-  const radius = 130;
+  const radius = 125;
   const centerX = width / 2;
   const centerY = height / 2;
 
@@ -93,141 +98,168 @@ export const VisualisationsPage: React.FC = () => {
   });
 
   return (
-    <div className="space-y-8">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-white tracking-tight">Association Rule Visualisations</h1>
-          <p className="text-sm text-slate-400 mt-1">
-            Empirical association strength, metric trade-offs, and product relationship clusters.
-          </p>
-        </div>
-
-        <div className="flex items-center space-x-4 bg-slate-900 border border-slate-800 px-4 py-2 rounded-xl text-xs">
-          <label className="flex items-center space-x-2 cursor-pointer text-slate-300">
-            <input
-              type="checkbox"
-              checked={onlyActionable}
-              onChange={(e) => setOnlyActionable(e.target.checked)}
-              className="rounded bg-slate-800 border-slate-700 text-blue-600 focus:ring-0"
-            />
-            <span>Only Actionable Rules</span>
-          </label>
-        </div>
-      </div>
-
-      {/* CA1 Viz #2: Top Rules Ranked by Lift */}
-      <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
-        <div className="flex items-center justify-between mb-2">
-          <div>
-            <div className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-amber-950 text-amber-400 border border-amber-800 mb-1">
-              CA1 Visualisation #2
-            </div>
-            <h2 className="text-base font-semibold text-white">Top Association Rules Ranked by Lift</h2>
+    <div className="space-y-6">
+      {/* 1. PAGE HEADER */}
+      <PageHeader
+        badge="Pattern Visualisations"
+        badgeColor="blue"
+        icon={LineChart}
+        title="Association Rule Visualisation Gallery"
+        description="Empirical association strength rankings, metric trade-offs (Support vs Confidence vs Lift), and product graph network topologies."
+        actions={
+          <div className="flex items-center space-x-3 bg-white border border-slate-200 px-3 py-1.5 rounded-lg shadow-2xs">
+            <label className="flex items-center space-x-2 cursor-pointer text-xs font-semibold text-slate-700">
+              <input
+                type="checkbox"
+                checked={onlyActionable}
+                onChange={(e) => setOnlyActionable(e.target.checked)}
+                className="rounded border-slate-300 text-blue-600 focus:ring-blue-500/20"
+              />
+              <span>Actionable Rules Only</span>
+            </label>
           </div>
-          <div className="flex items-center space-x-2 text-xs text-slate-400">
+        }
+      />
+
+      {/* 2. CA1 VIZ #2: TOP RULES RANKED BY LIFT */}
+      <ChartCard
+        title="CA1 Viz #2: Top Association Rules Ranked by Lift"
+        subtitle="Lift indicates how much more often items co-occur compared to statistical independence. Lift > 10x denotes exceptionally strong retail affinities."
+        badge="Ranked by Lift"
+        heightClass="h-96"
+        actions={
+          <div className="flex items-center space-x-2 text-xs text-slate-600">
             <span>Show Top:</span>
             <select
               value={topN}
               onChange={(e) => setTopN(parseInt(e.target.value))}
-              className="bg-slate-800 border border-slate-700 rounded px-2 py-1 text-white text-xs"
+              className="bg-slate-50 border border-slate-200 rounded-md px-2 py-1 text-slate-800 text-xs font-semibold focus:outline-none focus:ring-1 focus:ring-blue-500"
             >
-              <option value={10}>10</option>
-              <option value={15}>15</option>
-              <option value={20}>20</option>
+              <option value={10}>Top 10</option>
+              <option value={15}>Top 15</option>
+              <option value={20}>Top 20</option>
             </select>
           </div>
-        </div>
-        <p className="text-xs text-slate-400 mb-4">
-          Lift measures how much more frequently products are bought together compared to random chance. Lift values above 10x represent high commercial co-occurrence.
-        </p>
+        }
+        footer="Top rules heavily feature complementary colorway variants and matched collections (e.g., Herb Markers, Regency Teaware, Retrospot Storage)."
+      >
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart layout="vertical" data={topRulesData} margin={{ top: 10, right: 40, left: 230, bottom: 10 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
+            <XAxis type="number" tick={{ fill: '#64748B', fontSize: 11 }} stroke="#CBD5E1" />
+            <YAxis dataKey="name" type="category" tick={{ fill: '#1E293B', fontSize: 11 }} stroke="#CBD5E1" width={220} />
+            <Tooltip
+              contentStyle={{
+                backgroundColor: '#FFFFFF',
+                borderColor: '#E2E8F0',
+                borderRadius: '8px',
+                boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+                fontSize: '12px',
+                color: '#172033',
+              }}
+              formatter={(val: any, _name: any, item: any) => [
+                `Lift: ${Number(val).toFixed(2)}x (Conf: ${item.payload.confidence.toFixed(1)}%, Supp: ${item.payload.support.toFixed(2)}%)`,
+                item.payload.fullName,
+              ]}
+            />
+            <Bar dataKey="lift" fill="#2563EB" radius={[0, 4, 4, 0]} />
+          </BarChart>
+        </ResponsiveContainer>
+      </ChartCard>
 
-        <div className="h-96 w-full">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart layout="vertical" data={topRulesData} margin={{ top: 10, right: 40, left: 220, bottom: 10 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-              <XAxis type="number" tick={{ fill: '#94a3b8', fontSize: 11 }} />
-              <YAxis dataKey="name" type="category" tick={{ fill: '#e2e8f0', fontSize: 11 }} />
-              <Tooltip
-                contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', borderRadius: '8px', fontSize: '12px' }}
-                formatter={(val: any, _name: any, item: any) => [
-                  `Lift: ${Number(val).toFixed(2)}x (Conf: ${item.payload.confidence.toFixed(1)}%, Supp: ${item.payload.support.toFixed(2)}%)`,
-                  item.payload.fullName,
-                ]}
-              />
-              <Bar dataKey="lift" fill="#f59e0b" radius={[0, 4, 4, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-      </div>
-
-      {/* Grid: Support vs Confidence Scatter & Rule Network */}
+      {/* 3. GRID: SUPPORT VS CONFIDENCE SCATTER & SVG NETWORK GRAPH */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* CA1 Viz #3: Support vs Confidence Scatter Plot */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col justify-between">
+        <div className="bg-white border border-slate-200/90 rounded-xl p-6 shadow-xs flex flex-col justify-between">
           <div>
-            <div className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-950 text-emerald-400 border border-emerald-800 mb-1">
-              CA1 Visualisation #3
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+              <div>
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                  CA1 Visualisation #3
+                </span>
+                <h3 className="text-base font-bold text-slate-900 tracking-tight">
+                  Support vs Confidence (Bubble Size = Lift)
+                </h3>
+              </div>
+              <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                Top 60 Rules
+              </span>
             </div>
-            <h2 className="text-base font-semibold text-white">Support vs Confidence (Bubble Size = Lift)</h2>
-            <p className="text-xs text-slate-400 mt-1 mb-4">
-              Demonstrates the distribution of candidate rules. Rules in the top-right quadrant with large bubbles represent ideal recommendation targets.
+            <p className="text-xs text-slate-500 mb-4 leading-relaxed">
+              Rules situated in the upper-right quadrant with prominent bubble diameters represent premier cross-selling candidates possessing high confidence and strong lift.
             </p>
           </div>
 
           <div className="h-72 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 10 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
                 <XAxis
                   type="number"
                   dataKey="support"
                   name="Support (%)"
                   unit="%"
-                  tick={{ fill: '#94a3b8', fontSize: 11 }}
-                  label={{ value: 'Support (%)', position: 'bottom', fill: '#64748b', fontSize: 11 }}
+                  tick={{ fill: '#64748B', fontSize: 11 }}
+                  stroke="#CBD5E1"
+                  label={{ value: 'Support (%)', position: 'bottom', fill: '#64748B', fontSize: 11 }}
                 />
                 <YAxis
                   type="number"
                   dataKey="confidence"
                   name="Confidence (%)"
                   unit="%"
-                  tick={{ fill: '#94a3b8', fontSize: 11 }}
-                  label={{ value: 'Confidence (%)', angle: -90, position: 'left', fill: '#64748b', fontSize: 11 }}
+                  tick={{ fill: '#64748B', fontSize: 11 }}
+                  stroke="#CBD5E1"
+                  label={{ value: 'Confidence (%)', angle: -90, position: 'left', fill: '#64748B', fontSize: 11 }}
                 />
-                <ZAxis type="number" dataKey="lift" range={[40, 280]} name="Lift" />
+                <ZAxis type="number" dataKey="lift" range={[40, 260]} name="Lift" />
                 <Tooltip
                   cursor={{ strokeDasharray: '3 3' }}
-                  contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', borderRadius: '8px', fontSize: '12px' }}
+                  contentStyle={{
+                    backgroundColor: '#FFFFFF',
+                    borderColor: '#E2E8F0',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+                    fontSize: '12px',
+                    color: '#172033',
+                  }}
                   formatter={(val: any, name: any) => [`${val}`, name]}
                 />
-                <Scatter name="Rules" data={scatterData} fill="#10b981" />
+                <Scatter name="Rules" data={scatterData} fill="#059669" />
               </ScatterChart>
             </ResponsiveContainer>
           </div>
+
+          <div className="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-500">
+            Bubble diameter scales proportionally with association Lift factor.
+          </div>
         </div>
 
-        {/* Rule Network Graph */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col justify-between">
+        {/* Product Association Network Graph */}
+        <div className="bg-white border border-slate-200/90 rounded-xl p-6 shadow-xs flex flex-col justify-between">
           <div>
-            <div className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-purple-950 text-purple-400 border border-purple-800 mb-1">
-              Network Topology
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+              <div className="flex items-center space-x-2">
+                <Share2 className="w-4 h-4 text-blue-600" />
+                <h3 className="text-base font-bold text-slate-900 tracking-tight">Product Association Network</h3>
+              </div>
+              <span className="text-[11px] font-bold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200">
+                Top Affinity Graph
+              </span>
             </div>
-            <h2 className="text-base font-semibold text-white flex items-center">
-              <Share2 className="w-4 h-4 text-purple-400 mr-2" /> Product Association Network
-            </h2>
-            <p className="text-xs text-slate-400 mt-1 mb-2">
-              Visualizes topological clusters between products. Nodes represent products; directional links denote mined co-purchases.
+            <p className="text-xs text-slate-500 mb-3 leading-relaxed">
+              Topological co-purchase clusters. Circular nodes represent unique catalog products; connecting links denote mined association rules.
             </p>
           </div>
 
-          <div className="w-full h-72 bg-slate-950/80 rounded-lg border border-slate-800/80 flex items-center justify-center relative overflow-hidden">
+          <div className="w-full h-72 bg-slate-50 rounded-lg border border-slate-200/80 flex items-center justify-center relative overflow-hidden">
             <svg width={width} height={height} className="max-w-full max-h-full">
               {/* Edges */}
               {edges.map((e, idx) => {
                 const p1 = nodePositions.get(e.source);
                 const p2 = nodePositions.get(e.target);
                 if (!p1 || !p2) return null;
-                const strokeWidth = Math.min(Math.max((e.lift / 15), 1), 3);
+                const strokeWidth = Math.min(Math.max(e.lift / 15, 1.2), 3.5);
                 return (
                   <line
                     key={idx}
@@ -235,9 +267,9 @@ export const VisualisationsPage: React.FC = () => {
                     y1={p1.y}
                     x2={p2.x}
                     y2={p2.y}
-                    stroke="#4f46e5"
+                    stroke="#2563EB"
                     strokeWidth={strokeWidth}
-                    strokeOpacity={0.6}
+                    strokeOpacity={0.45}
                   />
                 );
               })}
@@ -248,24 +280,27 @@ export const VisualisationsPage: React.FC = () => {
                 if (!pos) return null;
                 return (
                   <g key={n.id} transform={`translate(${pos.x}, ${pos.y})`}>
-                    <circle r={10} fill="#3b82f6" stroke="#1d4ed8" strokeWidth={2} />
+                    <circle r={10} fill="#2563EB" stroke="#1D4ED8" strokeWidth={2} />
                     <text
                       y={-14}
                       textAnchor="middle"
-                      fill="#e2e8f0"
+                      fill="#1E293B"
                       fontSize={9}
-                      className="select-none font-semibold"
+                      className="select-none font-bold"
                     >
-                      {n.label.substring(0, 12)}...
+                      {n.label.substring(0, 14)}...
                     </text>
                   </g>
                 );
               })}
             </svg>
           </div>
+
+          <div className="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-500">
+            Line thickness corresponds to rule Lift strength between connected item pairs.
+          </div>
         </div>
       </div>
     </div>
   );
 };
-

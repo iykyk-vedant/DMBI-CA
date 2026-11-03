@@ -18,7 +18,7 @@ const STAGES = [
 
 export const ProcessFlow: React.FC<ProcessFlowProps> = ({ currentStage }) => {
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 overflow-x-auto scrollbar-none">
+    <div className="bg-white border border-slate-200/90 rounded-xl p-4 overflow-x-auto scrollbar-none shadow-xs">
       <div className="flex items-center min-w-max space-x-2">
         {STAGES.map((s, idx) => {
           const isCurrent = currentStage === s.id;
@@ -29,10 +29,10 @@ export const ProcessFlow: React.FC<ProcessFlowProps> = ({ currentStage }) => {
               <div
                 className={`flex flex-col px-3 py-2 rounded-lg border transition-all ${
                   isCurrent
-                    ? 'bg-blue-950/60 border-blue-500/60 text-blue-300 shadow-md shadow-blue-500/10'
+                    ? 'bg-blue-50 border-blue-300 text-blue-900 shadow-xs'
                     : isDone
-                    ? 'bg-emerald-950/20 border-emerald-800/40 text-emerald-300'
-                    : 'bg-slate-800/40 border-slate-800 text-slate-400'
+                    ? 'bg-emerald-50/70 border-emerald-200 text-emerald-900'
+                    : 'bg-slate-50 border-slate-200/70 text-slate-600'
                 }`}
               >
                 <div className="flex items-center space-x-1.5">
@@ -42,7 +42,7 @@ export const ProcessFlow: React.FC<ProcessFlowProps> = ({ currentStage }) => {
                         ? 'bg-blue-600 text-white'
                         : isDone
                         ? 'bg-emerald-600 text-white'
-                        : 'bg-slate-700 text-slate-300'
+                        : 'bg-slate-200 text-slate-700'
                     }`}
                   >
                     {s.id}
@@ -51,7 +51,7 @@ export const ProcessFlow: React.FC<ProcessFlowProps> = ({ currentStage }) => {
                 </div>
                 <span className="text-[10px] text-slate-500 mt-0.5">{s.desc}</span>
               </div>
-              {idx < STAGES.length - 1 && <ChevronRight className="w-3.5 h-3.5 text-slate-600 shrink-0" />}
+              {idx < STAGES.length - 1 && <ChevronRight className="w-3.5 h-3.5 text-slate-300 shrink-0" />}
             </React.Fragment>
           );
         })}
@@ -59,4 +59,3 @@ export const ProcessFlow: React.FC<ProcessFlowProps> = ({ currentStage }) => {
     </div>
   );
 };
-
